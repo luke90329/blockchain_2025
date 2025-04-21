@@ -127,3 +127,25 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
         --broadcast
     ```
 
+### Check the contract
+- Goto https://sepolia.etherscan.io/address/{ERC-20 CONTRACT ADDRESS} to check your contract.
+- Check total supply of your token.
+    ```
+    forge call --rpc-url Sepolia \
+        --to {token_address} --function "totalSupply()"
+    ```
+
+### Transfer token with your classmates!
+- Goto [ERC‑20 Collaboration Form](https://docs.google.com/spreadsheets/d/1tCwMNnZe6jjMBQVB9Nb7c0JYvaNeSEe5X2ZiKn6xMJI/edit?usp=sharing). Add you name, wallet address, ERC-20 contract address and token symbol to the form.
+
+- Mint token to specific wallet address.
+    ```
+    forge call --rpc-url Sepolia \
+        --private-key $PRIVATE_KEY \
+        --to {token_address} \
+        --function "mint(address,uint256)" {recipient_address} {amount} \
+        --broadcast
+    ```
+
+- Try to mint your token to your classmates in the form.
+- After you mint token to others, check if the total supply of your token changed?
