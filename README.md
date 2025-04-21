@@ -128,7 +128,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
     ```
 
 ### Check the contract
-- Goto https://sepolia.etherscan.io/address/{ERC-20 CONTRACT ADDRESS} to check your contract.
+- Goto https://sepolia.etherscan.io/address/{ERC-20_CONTRACT_ADDRESS} to check your contract.
 - Check total supply of your token.
     ```
     forge call --rpc-url Sepolia \
