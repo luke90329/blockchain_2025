@@ -36,7 +36,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
 - Delete `Counter.sol` in `src` directory
 - Delete `Counter.t.sol` in `test` directory
 
-### 4. Implement ERC-20 contract
+### 5. Implement ERC-20 contract
 - Create a new Solidity file in `src` directory.
 - In the file you just created, paste the following code.
     ```
@@ -58,7 +58,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
     ```
 - Try to modify the contract name, initial supply amount, token name and token symbol to whatever you like.
 
-### Local Test
+### 6. Local Test
 - Activating Anvil environment in bash.
     ```
     anvil
@@ -91,7 +91,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
     forge test -vv
     ```
 
-### Deploy ERC-20 contract to Sepolia testnet
+### 7. Deploy ERC-20 contract to Sepolia testnet
 - In `test` directory, create a new `.s.sol` file with the same name as erc20 contract file in `script` directory (e.g. `MyToken.s.sol`).
 - Paste the following code in the script file.
     ```
@@ -127,7 +127,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
         --broadcast
     ```
 
-### Check the contract
+### 8. Check the contract
 - Goto https://sepolia.etherscan.io/address/{ERC-20_CONTRACT_ADDRESS} to check your contract.
 - Check total supply of your token.
     ```
@@ -135,7 +135,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
         --to {token_address} --function "totalSupply()"
     ```
 
-### Transfer token with your classmates!
+### 9. Transfer token with your classmates!
 - Goto [ERC‑20 Collaboration Form](https://docs.google.com/spreadsheets/d/1tCwMNnZe6jjMBQVB9Nb7c0JYvaNeSEe5X2ZiKn6xMJI/edit?usp=sharing). Add you name, wallet address, ERC-20 contract address and token symbol to the form.
 
 - Mint token to specific wallet address.
