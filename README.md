@@ -10,6 +10,8 @@
 ##  ERC-20
 In this lab, you will use your own wallet to deploy your own ERC‑20 token on the Sepolia testnet.
 
+During the lab, if you have any questions or issues, feel free to ask the teacher or TA.
+
 ### 1. Initialize a Foundry project
 ```
 forge init erc20-lab
@@ -21,12 +23,12 @@ After installing the OpenZeppelin library, you can import it into your contract.
 forge install OpenZeppelin/openzeppelin-contracts
 ```
 
-### 3. Set private key and rpc endpoint in `foundry.toml`
-Add the following content at the bottom of the `foundry.toml`
-```
-[rpc_endpoints]
-Sepolia = "https://eth-sepolia.g.alchemy.com/v2/<API_KEY>"
-```
+### 3. Set rpc endpoint in `foundry.toml`
+- Add the following content at the bottom of the `foundry.toml`
+    ```
+    [rpc_endpoints]
+    Sepolia = "https://ethereum-sepolia-rpc.publicnode.com"
+    ```
 
 ### 4. Delete all example contracts
 - Delete `Counter.s.sol` in `script` directory
@@ -113,14 +115,18 @@ Sepolia = "https://eth-sepolia.g.alchemy.com/v2/<API_KEY>"
     ```
 - Modify `MyToken` to the name of your ERC-20 contract.
 
-- Set environment variable with your private key
+- Set environment variable with your private key. Be aware that you need to add `0x` in front of your private key.
     ```
-    export PRIVATE_KEY=<PRIVATE_KEY>
+    export PRIVATE_KEY=0x<PRIVATE_KEY>
+    ```
+    For example:
+    ```
+    export PRIVATE_KEY=0xfffffffffffffffffffffff
     ```
 
 - Deploy the contract to Sepolia testnet.
     ```
-    forge script script/<SCRIPT_NAME>.s.sol:DeployMyToken \
+    forge script script/<SCRIPT_NAME>.s.sol \
         --rpc-url Sepolia \
         --broadcast
     ```
@@ -130,21 +136,22 @@ Sepolia = "https://eth-sepolia.g.alchemy.com/v2/<API_KEY>"
     ![image](/img/etherscan.jpg)
 - Check total supply of your token.
     ```
-    forge cast --rpc-url Sepolia \
-        --to <token_address> --function "totalSupply()"
+    cast call <CONTRACT_ADDRESS> "totalSupply()" \
+        --rpc-url Sepolia
     ```
 
-### 9. Transfer token with your classmates!
+### 9. Import token in Metamask.
+
+### 10. Transfer token with your classmates!
 - Goto [ERC‑20 Collaboration Form](https://docs.google.com/spreadsheets/d/1tCwMNnZe6jjMBQVB9Nb7c0JYvaNeSEe5X2ZiKn6xMJI/edit?usp=sharing). Add you name, wallet address, ERC-20 contract address and token symbol to the form.
 
 - Mint token to specific wallet address.
     ```
-    forge cast --rpc-url Sepolia \
-        --private-key $PRIVATE_KEY \
-        --to <token_address> \
-        --function "mint(address,uint256)" <recipient_address> <amount> \
-        --broadcast
+    cast send <CONTRACT_ADDRESS> \
+        "mint(address,uint256)" <recipient_address> <amount> \
+        --rpc-url Sepolia \
+        --private-key $PRIVATE_KEY
     ```
 
-- Try to mint your token to your classmates in the form.
+- Try to mint or transfer the token to your classmates in the form.
 - After you mint token to others, check if the total supply of your token changed?
