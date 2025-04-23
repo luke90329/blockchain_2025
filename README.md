@@ -25,10 +25,7 @@ forge install OpenZeppelin/openzeppelin-contracts
 Add the following content at the bottom of the `foundry.toml`
 ```
 [rpc_endpoints]
-Sepolia = "https://eth-sepolia.g.alchemy.com/v2/demo"
-
-[env]
-PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
+Sepolia = "https://eth-sepolia.g.alchemy.com/v2/<API_KEY>"
 ```
 
 ### 4. Delete all example contracts
@@ -41,14 +38,14 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
 - In the file you just created, paste the following code.
     ```
     // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.0;
+    pragma solidity ^0.8.20;
 
-    import "openzeppelin-contracts/token/ERC20/ERC20.sol";
-    import "openzeppelin-contracts/access/Ownable.sol";
+    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
     contract MyToken is ERC20, Ownable {
-        constructor(uint256 initialSupply) ERC20("MyToken", "MTK") {
-            _mint(msg.sender, initialSupply);
+        constructor(uint INITIAL_SUPPLY) ERC20("MyToken", "MTK") Ownable(msg.sender) {
+            _mint(msg.sender, INITIAL_SUPPLY);
         }
 
         function mint(address to, uint256 amount) external onlyOwner {
@@ -92,7 +89,7 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
     ```
 
 ### 7. Deploy ERC-20 contract to Sepolia testnet
-- In `test` directory, create a new `.s.sol` file with the same name as erc20 contract file in `script` directory (e.g. `MyToken.s.sol`).
+- In `script` directory, create a new `.s.sol` file with the same name as erc20 contract file in `script` directory (e.g. `MyToken.s.sol`).
 - Paste the following code in the script file.
     ```
     // SPDX-License-Identifier: MIT
@@ -115,24 +112,26 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
     }
     ```
 - Modify `MyToken` to the name of your ERC-20 contract.
-- Build the contract.
+
+- Set environment variable with your private key
     ```
-    forge build
+    export PRIVATE_KEY=<PRIVATE_KEY>
     ```
+
 - Deploy the contract to Sepolia testnet.
     ```
-    forge script script/{YOUR SCRIPT NAME}.s.sol:DeployMyToken \
+    forge script script/<SCRIPT_NAME>.s.sol:DeployMyToken \
         --rpc-url Sepolia \
-        --private-key $PRIVATE_KEY \
         --broadcast
     ```
 
 ### 8. Check the contract
-- Goto https://sepolia.etherscan.io/address/{ERC-20_CONTRACT_ADDRESS} to check your contract.
+- Goto https://sepolia.etherscan.io/address/<TOKEN_CONTRACT_ADDRESS> to check your contract.
+    ![image](/img/etherscan.jpg)
 - Check total supply of your token.
     ```
-    forge call --rpc-url Sepolia \
-        --to {token_address} --function "totalSupply()"
+    forge cast --rpc-url Sepolia \
+        --to <token_address> --function "totalSupply()"
     ```
 
 ### 9. Transfer token with your classmates!
@@ -140,10 +139,10 @@ PRIVATE_KEY = "{YOUR PRIVATE KEY HERE}"
 
 - Mint token to specific wallet address.
     ```
-    forge call --rpc-url Sepolia \
+    forge cast --rpc-url Sepolia \
         --private-key $PRIVATE_KEY \
-        --to {token_address} \
-        --function "mint(address,uint256)" {recipient_address} {amount} \
+        --to <token_address> \
+        --function "mint(address,uint256)" <recipient_address> <amount> \
         --broadcast
     ```
 
