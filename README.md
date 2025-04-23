@@ -5,7 +5,7 @@
     - Do NOT use private keys from Foundry.
 2. Go to [Ethereum Sepolia Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia) to obtain Sepolia ETH.
     - Note: You can obtain 0.05 Sepolia ETH every 24 hours each wallet address.
-    - If their is any error, try to use another Google account. 
+    - If there is any error, try to use another Google account. 
 
 ##  ERC-20
 In this lab, you will use your own wallet to deploy your own ERC‑20 token on the Sepolia testnet.
