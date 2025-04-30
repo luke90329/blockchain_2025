@@ -155,3 +155,53 @@ forge install OpenZeppelin/openzeppelin-contracts
 
 - Try to mint or transfer the token to your classmates in the form.
 - After you mint token to others, check if the total supply of your token changed?
+
+---
+
+## ERC-721
+In this lab, 
+### 1. Initialize a Foundry project
+```
+forge init erc721-lab
+cd erc721-lab
+```
+
+### 2. (Optional) Install OpenZeppelin Library
+After installing the OpenZeppelin library, you can import it into your contract.
+```
+forge install OpenZeppelin/openzeppelin-contracts
+```
+
+### 3. Delete all example contracts
+- Delete `Counter.s.sol` in `script` directory
+- Delete `Counter.sol` in `src` directory
+- Delete `Counter.t.sol` in `test` directory
+
+### 4. Implement ERC-721 contract
+- Create a new Solidity file in `src` directory.
+- In the file you just created, paste the following code.
+    ```
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721URIStorage, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor() ERC721("Pepe the frog", "PEPE") {
+            _nextTokenId = 1;
+        }
+
+        function mintTo(address to, string calldata tokenURI_) external onlyOwner returns (uint256) {
+            uint256 tokenId = _nextTokenId;
+            _safeMint(to, tokenId);
+            _setTokenURI(tokenId, tokenURI_);
+            _nextTokenId += 1;
+            return tokenId;
+        }
+    }
+
+    ```
+- Try to modify the contract name, token name and token symbol to whatever you like.
